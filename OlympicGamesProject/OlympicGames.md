@@ -124,6 +124,91 @@ I'll create two donut charts for the gender breakdowns of athletes and medals. I
 
 ![image](https://user-images.githubusercontent.com/14934475/221711191-864bc7ff-9aa2-4dcb-900f-2f2537f84605.png)
 
+I'd like to add more visualisations to this dashboard to illustrate the number of medals and how it relates to sport type and level of medal received. I'll do a bar chart for clarity and variety. I'll add the "sport" variable and "# of medals" calculation as axes and convert the chart to a stacked bar chart, which will automatically sort from greatest to least. Next I will add the "medals" variable. Now, automatically a large number of not-registered rows are muddying up our visualisation. We're not really interested in those data points because we can't derive much insight from them.
+
+![image](https://user-images.githubusercontent.com/14934475/221715979-6bf30cdf-0ee1-46a5-9f25-dc76779596a7.png)
+
+![image](https://user-images.githubusercontent.com/14934475/221716146-644d6bda-49c6-449c-b268-450d50396859.png)
+
+The solution I will use here is to create a new measure which excludes "not registered" medal rows. The new measure will only include bronze, silver, and gold medals.
+
+![image](https://user-images.githubusercontent.com/14934475/221716458-1fc93b0d-5229-4311-ac0b-159f5893632d.png)
+
+```
+# of Medals (Registered) = CALCULATE( [# of Medals] , FILTER ( 'Olympic Games Data' , 'Olympic Games Data'[Medal] = "Bronze" || 'Olympic Games Data'[Medal] = "Silver" || 'Olympic Games Data'[Medal] = "Gold"))
+```
+
+I'll add this new calculation (# of Medals (Registered)) in the X-axis field, and we're in business. Our unnecessary data has been excluded with the use of filtering in a calculation.
+
+![image](https://user-images.githubusercontent.com/14934475/221717735-2f5914d7-dd06-4e9a-8403-5b7d9de45952.png)
+
+While I'm at it, I'll use that new calculation to update my KPI box on the left. I want data to be consistent.
+
+![image](https://user-images.githubusercontent.com/14934475/221717958-56ce6474-c74b-4b7b-85f2-0ce08d44fd98.png)
+
+I'll update the medals donut chart as well. The stacked bar chart could use some formatting, I'll take care of that too. I'll add data labels, remove the legend, add a border, change the font size and add colour coding.
+
+![image](https://user-images.githubusercontent.com/14934475/221718948-82144af2-0ba8-4ce9-8ddd-2a064074c615.png)
+
+In order to protect the formatting standards, I'll copy and paste this chart to create its sibling. The key change in the second bar chart, other than the shape, is that it now shows the medal earnings of the top ranking athletes in Olympic history.
+
+![image](https://user-images.githubusercontent.com/14934475/221720837-b0b072cd-2d73-4573-ad27-09076c4c144f.png)
+
+Once again, I'll copy that first bar chart and bring it lower, then transform it into a line graph. The benefit of copying is that I save time by not having to redo the colors and other style choices.
+
+I'll sort this line chart by year, ascending. Now we have this nice timeline.
+
+![image](https://user-images.githubusercontent.com/14934475/221721059-f66cf6a6-d18c-49c2-9171-ffb3dfaa7b81.png)
+
+I'll rename this view of the project:
+
+![image](https://user-images.githubusercontent.com/14934475/221721167-64491ffe-dd88-4d6f-8b1d-d08f114bc77e.png)
+
+### Final Dashboard: Main View
+
+And we're done. The monster reveal:
+
+![image](https://user-images.githubusercontent.com/14934475/221722068-65b577cc-a0aa-4d69-a944-2b3e39685f95.png)
+
+Just kidding. The reveal:
+
+![image](https://user-images.githubusercontent.com/14934475/221721301-631f6fa7-3dff-4ead-a9ad-2eae58e65290.png)
+
+I flew too close to the sun with that "burnt mustard", let me lighten it up a bit.
+
+![image](https://user-images.githubusercontent.com/14934475/221721783-50190e01-84ce-4f5c-9978-7dea17d2cde9.png)
+
+Ahhh.
+
+### Insights
+
+Some quick insights we can draw from the dashboard with all data:
+
+- Over 100,000 athletes and over 34,000 medals are on record for the summer Olympics between 1896 and 2016.
+- People coded as women make up around 24% of the athletes and around 27% of the medals. The rest are coded as men.
+- Medals of all kinds have been on the rise in terms of quantity since 1896. They had a noticeable peak in summer of 1920 followed by a decline in 1924.
+- Michael Phelps leads dramatically with 23 gold medals, 2 silver and 2 bronze. The next most medal-adorned athlete is Larysa Latynina, with 9 gold, 5 silver, and 4 bronze. Nikolay Andrianov is thirdmost Olympic-medal-decorated in history: 7/5/3, although Mark Spitz has more gold medals than Andrianov (9) as does Sawao Kato (8).
+- Athletics, Swimming, and Boxing have the most medals in quantity, or perhaps the most participants, or both.
+
+Let's focus in on Ireland.
+
+![image](https://user-images.githubusercontent.com/14934475/221723536-9a8b49f2-06a2-4334-b72b-0590e788d90d.png)
+
+- Ireland historically has a stronger male gender makeup than the global average.
+- Michelle Smith is the most decorated Irish Olympic athlete with 3 gold medals and 1 bronze. Pat O'Callaghan follows with 2 gold medals.
+- For medals overall by sport, Ireland has claimed the most awards in Boxing. It has claimed the most *gold* medals in Athletics.
+
+If we focus in on just boxing in Ireland using the slicers on the left, we can see that while the women's representation in this sport category diminishes to nearly nothing, Katie Taylor still comes out swinging with one of two total gold medals.
+
+![image](https://user-images.githubusercontent.com/14934475/221724451-133ecc5a-afb3-4414-8d65-50132bc42d52.png)
+
+![image](https://user-images.githubusercontent.com/14934475/221725016-97fdfa1e-3f04-4854-bdd0-0ffad2a9051f.png)
+
+
+
+
+
+
 
 
 
