@@ -8,11 +8,14 @@ In this project I will clean dirty data from a dataset to make it ready for use,
 ### The Business Problem
 
 For the purposes of this exercise, let's say I've been tasked with showing trends and findings on how various countries have historically performed in the summer Olympic Games.
-Stakeholders are curious about competitor details and wish me to share any other trends I might find. Primarily the interest is with country performance, with the user having the option to select their own country.
+
+Stakeholders are curious about athlete details and wish me to share any other trends I might find. Primarily the interest is with country performance, with the user having the option to select their own country.
 
 While this may not seem like a typical tech industry prompt, it is quite similar to business problems that I came across working as a research analyst at Morgan McKinley's FDI Research Team.
+
 Sometimes it's helpful to take historical public data - like CSO statistics in Ireland - and visualise it for comparison to analysis of more privatised data. And you can't do that properly until the data is clean.
-So let's get started in SQL.
+
+So let's get started in SQL cleaning the data.
 
 ### Data Cleaning in SQL Server
 
@@ -38,7 +41,7 @@ FROM olympic_games.dbo.athletes_event_results
 
 Next I'll recategorise and relabel some of this data so that it's easier to work with and understand. This will help me later when visualising the data in Power BI.
 
-I won't make any changes to the ID column, but I'll rename the 'Name' column as 'Competitor Name'. I'll also rename M and F as 'Male' and 'Female' using a CASE statement. I'll include age as a column in this query and create bins for the ages with labels.
+I won't make any changes to the ID column, but I'll rename the 'Name' column as 'Athlete Name'. I'll also rename M and F as 'Male' and 'Female' using a CASE statement. I'll include age as a column in this query and create bins for the ages with labels.
 Now, I know the question is about specifically summer Olympic games, but the summer and winter games are all combined here along with the year. I will separate the year from the season using CHARINDEX so I can break down the analysis by season - the WHERE clause at the end completes this.
 I'll also relabel the "NA" column for clarity.
 
