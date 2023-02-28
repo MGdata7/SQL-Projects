@@ -123,7 +123,7 @@ And format the KPI with a comma. Then I'll do the same for the full number of me
 
 ![image](https://user-images.githubusercontent.com/14934475/221709227-344a1bc8-750a-4662-9fc2-1ebb9d67cbf4.png)
 
-I'll create two donut charts for the gender breakdowns of athletes and medals. I'll adjust the formatting to pick a dark colour for women and a light colour for men (just using yin and yang gender coding logic for convenience. Gender may be a construct but Olympics athlete data is still hashing that out). I'll add percentage data callouts. It looks like women are overrepresenting ever so slightly in the medals category. 
+I'll create two donut charts for the gender breakdowns of athletes and medals. I'll adjust the formatting to pick a dark colour for women and a light colour for men (just using yin and yang gender coding logic for convenience. Gender may be a construct but Olympics athlete data is still hashing that out). I'll add percentage data callouts. It looks like women are overrepresenting ever so slightly in the medals category. It's narrow enough that I can't read too far into it.
 
 ![image](https://user-images.githubusercontent.com/14934475/221711191-864bc7ff-9aa2-4dcb-900f-2f2537f84605.png)
 
