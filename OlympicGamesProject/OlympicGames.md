@@ -3,7 +3,7 @@
 
 ![image](https://user-images.githubusercontent.com/14934475/221599107-e5c6283a-a4cc-44c1-9550-a3af032f6d2c.png)
 
-In this project I will clean dirty data from a dataset to make it ready for use, then create a dashboard visualisation to clearly communicate data insights to stakeholders.
+In this project I will clean dirty data from a dataset to make it ready for use, then create a dashboard visualisation to clearly communicate data insights to stakeholders. This project was designed by Ali Ahmad on YouTube.
 
 ### The Business Problem
 
