@@ -202,6 +202,8 @@ If we focus in on just boxing in Ireland using the slicers on the left, we can s
 
 ![image](https://user-images.githubusercontent.com/14934475/221724451-133ecc5a-afb3-4414-8d65-50132bc42d52.png)
 
+To the surprise of none of her fans, Katie is, statistically, punching well above her weight.
+
 ![image](https://user-images.githubusercontent.com/14934475/221725016-97fdfa1e-3f04-4854-bdd0-0ffad2a9051f.png)
 
 
