@@ -9,9 +9,9 @@ whether aesthetician licenses are more densely occurring in higher-income areas.
 Aesthetic services are typically expensive so this may seem intuitive. But this insight might drive business choices - like how to approach marketing salon products to aestheticians, for example - so it's worth asking a data analyst to run the numbers and make sure.
 Additionally, an unexpected insight that aestheticians are equally common in lower income areas might point to a new area of the market. It's time to see what the data can tell us.
 
-Before any analysis can happen, the data has to be formatted in a way that makes it easy to analyse. It needs to be cleaned. We'll clean the data and then see what we can find.
+Before any analysis can happen, the data has to be formatted in a way that makes it easy to analyse. It needs to be cleaned. We'll clean the data and then see what we can find in the next episode of this project (analysis).
 
-This project prompt was designed by David Langer. First I'll download the datasets.
+This project prompt was designed by David Langer, though the approach is all mine. First I'll download the datasets.
 
 ### Viewing the Data
 
@@ -38,6 +38,79 @@ In the Texas cosmetology info, it looks like the counties are isolated, though t
 Next I'll import the two spreadsheets into SQL Server and create databases like so:
 
 ![image](https://user-images.githubusercontent.com/14934475/222178390-bd3262eb-c72f-4c5e-8d45-968872351ba1.png)
+
+```
+SELECT TOP 1000 *
+FROM Projects.dbo.TX_Cosm_Data$
+```
+
+![image](https://user-images.githubusercontent.com/14934475/222183115-229afb5c-1c20-4157-970a-5739e59c308d.png)
+
+
+```
+SELECT *
+FROM Projects.dbo.TX_Census_Data$
+```
+
+![image](https://user-images.githubusercontent.com/14934475/222183319-38418804-18cb-42ea-b3d9-2d37632c9b0c.png)
+
+
+Ok, time to transform the County column to remove " " , "County", and "Texas". I could just cut off all characters following the first space in that column, but I have to be careful because some county names have two words:
+
+![image](https://user-images.githubusercontent.com/14934475/222183930-59c31b3f-35c2-4e40-b077-173594aca986.png)
+
+So instead, I'll tell SQL to keep all characters before " County". I'll create a new column as well.
+
+```
+
+ALTER TABLE Projects.dbo.TX_Census_Data$
+ADD NewCounty VARCHAR(255)
+
+UPDATE Projects.dbo.TX_Census_Data$
+SET NewCounty = 
+    CASE 
+        WHEN CHARINDEX(' County', CountyName) > 0 
+        THEN SUBSTRING(CountyName, 1, CHARINDEX(' County', CountyName) - 1) 
+        ELSE CountyName 
+    END 
+
+SELECT * 
+FROM Projects.dbo.TX_Census_Data$
+
+```
+Great, we're all set with a new properly named column.
+
+![image](https://user-images.githubusercontent.com/14934475/222192555-74c9ff3f-b224-4788-8ce8-7e5bd5f01e33.png)
+
+Next I'll pull up the other table and clean THAT county column.
+
+```
+SELECT TOP 1000 *
+FROM Projects.dbo.TX_Cosm_Data$
+UPDATE Projects.dbo.TX_Cosm_Data$
+SET COUNTY = UPPER(LEFT(COUNTY, 1)) + LOWER(SUBSTRING(COUNTY, 2, LEN(COUNTY)))
+```
+![image](https://user-images.githubusercontent.com/14934475/222196228-ebe8d114-27da-46e7-bb7b-417feaeb27a1.png)
+
+Great, now the county names in the Texas Cosmetology Licensure table are capitalised properly. It just looks better.
+
+Since I've picked county data to use as a basis for analysis, the two tables needed to be joined at the county level.
+
+```
+SELECT *
+FROM Projects.dbo.TX_Census_Data$ AS cen
+INNER JOIN Projects.dbo.TX_Cosm_Data$ AS cos
+ON cen.County = cos.COUNTY
+```
+
+Hooray! Both tables have been joined, and they match.
+
+![image](https://user-images.githubusercontent.com/14934475/222775784-1fc9ff90-40c0-423e-8025-0790ba85a8cd.png)
+
+Let's revisit the prompt to advise next steps.
+
+> A stakeholder is asking me whether aesthetician licenses are more densely occurring in higher-income areas. They also invite me to share other insights around geographical characteristics and aesthetician licensure.
+
 
 
 
