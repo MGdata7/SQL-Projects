@@ -123,7 +123,7 @@ I have a couple of extra columns and I've already validated the data by looking 
 ALTER TABLE cencos
 DROP COLUMN [CensusCounty], [CosmCounty]
 ```
-I think now actually, I'm going to make the titles of the columns all uppercase.
+I think now actually, I'm going to make the titles of the columns all uppercase. I'm allowed to change my mind, and so are you!
 
 ```
 EXEC sp_rename 'cencos.CountyJoin', 'COUNTYJOIN', 'COLUMN';
@@ -134,10 +134,17 @@ EXEC sp_rename 'cencos.MedianIncome', 'MEDIANINCOME', 'COLUMN';
 
 ![image](https://user-images.githubusercontent.com/14934475/222790438-293c34ea-1737-4d47-827c-9594323531a5.png)
 
+I've now done one of the most important parts of data science, data cleaning. We went from over a thousand columns of poorly labeled data of different lengths separated into two tables, and brought it down to five neatly labeled columns, the same length, of exactly what we wanted.
 
-Let's revisit the prompt to advise next steps.
+It's no wonder data cleaning is the thing data scientists spend the most time on. The analysis part will be simple. It's not 'til the next project, though!
+
+Let's revisit the prompt to advise next steps. This is the question we'll answer in the next project.
 
 > A stakeholder is asking me whether aesthetician licenses are more densely occurring in higher-income areas. They also invite me to share other insights around geographical characteristics and aesthetician licensure.
+
+![image](https://user-images.githubusercontent.com/14934475/222792371-5597b9e3-627e-4798-83c9-33142fa5ceab.png)
+
+
 
 
 
