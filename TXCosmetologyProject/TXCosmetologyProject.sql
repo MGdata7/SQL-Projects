@@ -60,9 +60,33 @@ EXEC sp_rename 'cencos.DP03_0063E', 'MedianIncome', 'COLUMN';
 EXEC sp_rename 'cencos.CountyJoin', 'COUNTYJOIN', 'COLUMN';
 EXEC sp_rename 'cencos.MedianIncome', 'MEDIANINCOME', 'COLUMN';
 
-SELECT TOP 100 *
+--Remove duplicate rows
+
+--Query list of unique combinations of values in columns
+
+SELECT ROW_NUMBER() OVER (PARTITION BY GEO_ID, COUNTYJOIN, MEDIANINCOME, [LICENSE TYPE], [LICENSE NUMBER] ORDER BY (SELECT NULL)) as row_num, GEO_ID, COUNTYJOIN, MEDIANINCOME, [LICENSE TYPE], [LICENSE NUMBER]
 FROM cencos
 
+--Assign a unique number to each row
+
+SELECT ROW_NUMBER() OVER (PARTITION BY GEO_ID, COUNTYJOIN, MEDIANINCOME, [LICENSE TYPE], [LICENSE NUMBER] ORDER BY (SELECT NULL)) as row_num, *
+FROM cencos
+
+--Add ID column and remove duplicate rows
+
+ALTER TABLE cencos ADD id INT IDENTITY(1,1)
+
+DELETE FROM cencos
+WHERE id IN (
+    SELECT id
+    FROM (
+        SELECT ROW_NUMBER() OVER (PARTITION BY GEO_ID, COUNTYJOIN, MEDIANINCOME, [LICENSE TYPE], [LICENSE NUMBER] ORDER BY (SELECT NULL)) as row_num, id
+        FROM cencos
+    ) t
+ WHERE row_num > 1)
+ 
+ SELECT *
+ FROM cencos
 
 
 
