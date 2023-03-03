@@ -23,6 +23,10 @@ This project prompt was designed by David Langer, though the approach is all min
 
 The DP03 is the U.S. Census' dataset on economic characteristics of the US population, derived from the American Community Survey. I used 2021 data and only selected Texas counties there.
 
+![image](https://user-images.githubusercontent.com/14934475/222791085-72e4bc30-590a-4842-b98c-78b7ed2b1f8e.png)
+
+I can make this joke, I'm from Texas. :D
+
 Let's have a look at the data in Excel. Looking at the census data, right away I can see something that needs tweaking. The county information is tied in with state information. I'll need to change that to merge it with the Texas cosmetology data.
 
 ![image](https://user-images.githubusercontent.com/14934475/222171185-c31d107f-c667-42c2-bf4a-83417ee35850.png)
@@ -30,6 +34,8 @@ Let's have a look at the data in Excel. Looking at the census data, right away I
 The columns are also named by coding for which the Census provided a dictionary spreadsheet. I'll likely rename the columns I'm working most with.
 
 In the Texas cosmetology info, it looks like the counties are isolated, though the capitalisation is different so I will fix that later. I'm happy to see some of the data has been sanitised and addresses have been removed, that saves me a step.
+
+![image](https://user-images.githubusercontent.com/14934475/222790929-34e33819-23ac-4dbe-9bc6-f6941221e785.png)
 
 ![image](https://user-images.githubusercontent.com/14934475/222172158-24392289-063b-4075-935e-f6e5d6631e4b.png)
 
@@ -97,22 +103,41 @@ Great, now the county names in the Texas Cosmetology Licensure table are capital
 Since I've picked county data to use as a basis for analysis, the two tables needed to be joined at the county level.
 
 ```
-SELECT *
+SELECT cen.County AS CensusCounty, cos.County AS CosmCounty, cen.[GEO_ID], cen.[COUNTY] AS CensusCounty2, cen.[DP03_0063E], cos.[LICENSE TYPE], cos.[LICENSE NUMBER], cos.[COUNTY]
+INTO cencos
 FROM Projects.dbo.TX_Census_Data$ AS cen
 INNER JOIN Projects.dbo.TX_Cosm_Data$ AS cos
-ON cen.County = cos.COUNTY
+ON cen.County = cos.COUNTY
+
+Select TOP 100 *
+FROM cencos
 ```
 
-Hooray! Both tables have been joined, and they match.
+Hooray! Both tables have been joined, a new table has been created, the names are more manageable and we have just the right number of columns. We have excluded null columns and ones not pertinent to the research question -- this helps make the workspace clearer to the next person as well.
 
-![image](https://user-images.githubusercontent.com/14934475/222775784-1fc9ff90-40c0-423e-8025-0790ba85a8cd.png)
+I have a couple of extra columns and I've already validated the data by looking through it. I'll drop those extra county data columns.
+
+![image](https://user-images.githubusercontent.com/14934475/222790615-0a2a8187-2b99-4b85-9bc1-3f8ffd0f9a3c.png)
+
+```
+ALTER TABLE cencos
+DROP COLUMN [CensusCounty], [CosmCounty]
+```
+I think now actually, I'm going to make the titles of the columns all uppercase.
+
+```
+EXEC sp_rename 'cencos.CountyJoin', 'COUNTYJOIN', 'COLUMN';
+EXEC sp_rename 'cencos.MedianIncome', 'MEDIANINCOME', 'COLUMN';
+```
+
+![image](https://user-images.githubusercontent.com/14934475/222790113-1c908bf0-f346-4042-a99f-161a3478ab7f.png)
+
+![image](https://user-images.githubusercontent.com/14934475/222790438-293c34ea-1737-4d47-827c-9594323531a5.png)
+
 
 Let's revisit the prompt to advise next steps.
 
 > A stakeholder is asking me whether aesthetician licenses are more densely occurring in higher-income areas. They also invite me to share other insights around geographical characteristics and aesthetician licensure.
-
-
-
 
 
 
