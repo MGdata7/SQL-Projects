@@ -134,6 +134,47 @@ EXEC sp_rename 'cencos.MedianIncome', 'MEDIANINCOME', 'COLUMN';
 
 ![image](https://user-images.githubusercontent.com/14934475/222790438-293c34ea-1737-4d47-827c-9594323531a5.png)
 
+### Incorporating Feedback
+
+I ran this project by my data scientist friend, and he pointed out some duplicates I'd missed:
+
+![image](https://user-images.githubusercontent.com/14934475/222806429-dcdc2ae6-5ac5-44f0-bd83-c40c777f002b.png)
+
+Great catch Lenny, I'll go in and fix that.
+
+First I'll query a list of unique combinations of values in columns:
+
+```
+SELECT ROW_NUMBER() OVER (PARTITION BY GEO_ID, COUNTYJOIN, MEDIANINCOME, [LICENSE TYPE], [LICENSE NUMBER] ORDER BY (SELECT NULL)) as row_num, GEO_ID, COUNTYJOIN, MEDIANINCOME, [LICENSE TYPE], [LICENSE NUMBER]
+FROM cencos
+```
+
+Next I'll assign a unique number to each row:
+
+```
+SELECT ROW_NUMBER() OVER (PARTITION BY GEO_ID, COUNTYJOIN, MEDIANINCOME, [LICENSE TYPE], [LICENSE NUMBER] ORDER BY (SELECT NULL)) as row_num, *
+FROM cencos
+```
+
+I'll create an ID column and delete duplicates:
+
+```
+ALTER TABLE cencos ADD id INT IDENTITY(1,1)
+
+DELETE FROM cencos
+WHERE id IN (
+    SELECT id
+    FROM (
+        SELECT ROW_NUMBER() OVER (PARTITION BY GEO_ID, COUNTYJOIN, MEDIANINCOME, [LICENSE TYPE], [LICENSE NUMBER] ORDER BY (SELECT NULL)) as row_num, id
+        FROM cencos
+    ) t
+ WHERE row_num > 1)
+ ```
+ 
+![image](https://user-images.githubusercontent.com/14934475/222807022-88cf79cf-46cf-49df-8c93-92d1158417b2.png)
+
+Excellent! We've made the license values distinct. The other recurring values make sense: county data aligns with the GEO_ID, which is likely to align with median income.
+
 I've now done one of the most important parts of data science, data cleaning. We went from over a thousand columns of poorly labeled data of different lengths separated into two tables, and brought it down to five neatly labeled columns, the same length, of exactly what we wanted.
 
 It's no wonder data cleaning is the thing data scientists spend the most time on. The analysis part will be simple. It's not 'til the next project, though!
