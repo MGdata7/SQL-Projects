@@ -105,10 +105,6 @@ I will then convert this table into Calculation format by hiding the unused colu
 
 Apologies that I don't have the "before" screenshot for context - I had just saved and erased any easy shot at the reliable ctrl + z.
 
-![image](https://user-images.githubusercontent.com/14934475/221702341-8f613c59-844d-4769-8af5-2d3737b24a0f.png)
-
-> I'll add that project creation, for me, is an exercise in quality vs. completion. You could say that portfolio projects are an opportunity for me to demonstrate that I have attention to detail. But this week (27/2/2023) I have a goal of one SQL project per day. Will I meet that goal if I get meticulous about screenshots? Not easily. Will I go back and polish them? Probably not for all projects. Perfect is the enemy of done. 
-
 Back to the dashboard creation process. I'll add a card to the canvas.
 
 ![image](https://user-images.githubusercontent.com/14934475/221704665-30b5e03c-94a4-478c-8a90-8b0540011bc5.png)
